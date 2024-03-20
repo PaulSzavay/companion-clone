@@ -31,6 +31,10 @@ const Options = ({menuOpened, setMenuOpened, alert, setAlert, numberOfPlayers, p
         navigate('/')
     }
 
+    const profiles = () => {
+        navigate('/profiles', {state:data})
+    }
+
 
     return (
         <>
@@ -38,8 +42,7 @@ const Options = ({menuOpened, setMenuOpened, alert, setAlert, numberOfPlayers, p
             <CloseButton onClick={close}>X</CloseButton>
             <MenuTitle>Options</MenuTitle>
             <Menu>
-                <MenuComponents><MenuButton>Setup</MenuButton></MenuComponents>
-                <MenuComponents><MenuButton>Profiles</MenuButton></MenuComponents>
+                <MenuComponents><MenuButton onClick={profiles}>Profiles</MenuButton></MenuComponents>
                 <MenuComponents><MenuButton onClick={reset}>Reset</MenuButton></MenuComponents>
                 <MenuComponents><MenuButton onClick={roll}>Roll</MenuButton></MenuComponents>
                 <MenuComponents><MenuButton onClick={flip}>Flip</MenuButton></MenuComponents>

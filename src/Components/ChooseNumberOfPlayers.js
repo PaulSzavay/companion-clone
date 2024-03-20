@@ -12,13 +12,23 @@ const ChooseNumberOfPlayers = ({numberOfPlayers, setNumberOfPlayers, playerArray
     }
 
 const selectNumber = (e) =>{
+    if(parseInt(e.target.value) === 2){
     setNumberOfPlayers(parseInt(e.target.value))
     let playerOrder = []
     for(var i=0; i<e.target.value; i++){
         playerOrder.push({number:i+1, playerName:`Player${i+1}`, startingLife: 20})
     }
     setPlayerArray(playerOrder)
-    setDropdown("remove")
+    setDropdown("remove")}
+    else{
+        setNumberOfPlayers(parseInt(e.target.value))
+        let playerOrder = []
+        for(var i=0; i<e.target.value; i++){
+            playerOrder.push({number:i+1, playerName:`Player${i+1}`, startingLife: 40})
+        }
+        setPlayerArray(playerOrder)
+        setDropdown("remove")
+    }
 }
 
 

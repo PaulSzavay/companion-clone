@@ -6,6 +6,7 @@ import Lifetracker from './Components/Lifetracker';
 import Options from './Components/Options';
 import DiceRoll from './Components/DiceRoll';
 import CoinFlip from './Components/CoinFlip';
+import Profiles from './Components/Profiles';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/options" element={<Options />}/>
         <Route path="/diceroll" element={<DiceRoll />}/>
         <Route path="/coinflip" element={<CoinFlip />}/>
+        <Route path="/profiles" element={<Profiles />}/>
       </Routes>
     </Router>
     </>
