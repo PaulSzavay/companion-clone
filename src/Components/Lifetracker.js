@@ -1,144 +1,135 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { Plus } from 'lucide-react';
-import { Minus } from 'lucide-react';
+import { Plus } from "lucide-react";
+import { Minus } from "lucide-react";
 import ChooseNumberOfPlayers from "./ChooseNumberOfPlayers";
+import Options from "./Options";
+import AreYouSure from "./AreYouSure";
+import { useLocation } from "react-router-dom";
 
 const Lifetracker = () => {
 
-    const [startingLife, setStartingLife] = useState(20)
+    const location = useLocation();
+    const data = location.state
 
-    const [startingLife2, setStartingLife2] = useState(20)
+  const [alert, setAlert] = useState(false)
 
-    const [startingLife3, setStartingLife3] = useState(20)
+  const [numberOfPlayers, setNumberOfPlayers] = useState("");
 
-    const [startingLife4, setStartingLife4] = useState(20)
+  const [playerArray, setPlayerArray] = useState([]);
 
-    const [numberOfPlayers, setNumberOfPlayers] = useState ('')
+  const [menuOpened, setMenuOpened] = useState(false);
 
-    const [playerArray, setPlayerArray] = useState([])
+  
+    useEffect(() => {
+        if(data){
+        setPlayerArray(data.playerArray)
+        setNumberOfPlayers(data.numberOfPlayers)
+        }
+      }, []);
 
-    const decreaseLife = (index) => {
-        let newPlayerArray = [...playerArray];
-        let currentPlayer = newPlayerArray[index];
-        currentPlayer.startingLife -= 1;
-        setPlayerArray(newPlayerArray);
+  const decreaseLife = (index) => {
+    let newPlayerArray = [...playerArray];
+    let currentPlayer = newPlayerArray[index];
+    if (currentPlayer.startingLife !== 0) {
+      currentPlayer.startingLife -= 1;
+      setPlayerArray(newPlayerArray);
     }
+  };
 
-    const increaseLife = (index) => {
-        let newPlayerArray = [...playerArray];
-        let currentPlayer = newPlayerArray[index];
-        currentPlayer.startingLife += 1;
-        setPlayerArray(newPlayerArray);
-    }
+  const increaseLife = (index) => {
+    let newPlayerArray = [...playerArray];
+    let currentPlayer = newPlayerArray[index];
+    currentPlayer.startingLife += 1;
+    setPlayerArray(newPlayerArray);
+  };
 
-    
-    // const decreaseLife2 = (e) => {
-    //     console.log(e)
-    //     setStartingLife2(startingLife2-1)
-    // }
-
-    // const increaseLife2 = () => {
-    //     setStartingLife2(startingLife2+1)
-    // }
+  const menu = () => {
+    setMenuOpened(!menuOpened);
+  };
 
 
-    // const decreaseLife3 = (e) => {
-    //     console.log(e)
-    //     setStartingLife3(startingLife3-1)
-    // }
-
-    // const increaseLife3 = () => {
-    //     setStartingLife3(startingLife3+1)
-    // }
-
-    
-    // const decreaseLife4 = (e) => {
-    //     console.log(e)
-    //     setStartingLife4(startingLife4-1)
-    // }
-
-    // const increaseLife4 = () => {
-    //     setStartingLife4(startingLife4+1)
-    // }
-
-
-
-
-
-
-
-    return (
-        <>
-            <LifetrackerSection>
-                <h2>Lifetracker</h2>
-                {playerArray.length > 0 && playerArray.map((player, index) => {
-                    return(
-                        <Player1 key={index}>
-                        <Title>{player.playerName}</Title>
-                        <Lifetotal>
-                        <button onClick={() => {decreaseLife(index)}}><Minus /></button>
-                        <div>{player.startingLife}</div>
-                        <button onClick={() => {increaseLife(index)}}><Plus /></button>
-                        </Lifetotal>
-                        </Player1>
-                    )
-                })}
-                {/* <Player1>
-                    <Title>Player 1</Title>
+  return (
+    <>
+      <LifetrackerSection>
+        {alert ? < AreYouSure alert={alert} setAlert={setAlert} numberOfPlayers={numberOfPlayers} setNumberOfPlayers={setNumberOfPlayers} playerArray={playerArray} setPlayerArray={setPlayerArray}/> : <>
+        {menuOpened ? (
+          <Options menuOpened={menuOpened} setMenuOpened={setMenuOpened} alert={alert} setAlert={setAlert} numberOfPlayers={numberOfPlayers} playerArray={playerArray} />
+        ) : (
+          <>
+            <h2>Lifetracker</h2>
+            {playerArray.length > 0 &&
+              playerArray.map((player, index) => {
+                return (
+                  <Player1 key={index}>
+                    <Title>{player.playerName}</Title>
                     <Lifetotal>
-                    <button onClick={decreaseLife1}><Minus /></button>
-                    <div>{startingLife}</div>
-                    <button onClick={increaseLife1}><Plus /></button>
+                      <button
+                        onClick={() => {
+                          decreaseLife(index);
+                        }}
+                      >
+                        <Minus />
+                      </button>
+                      <div>{player.startingLife}</div>
+                      <button
+                        onClick={() => {
+                          increaseLife(index);
+                        }}
+                      >
+                        <Plus />
+                      </button>
                     </Lifetotal>
-                </Player1>
-                <Player2>
-                    <Title>Player 2</Title>
-                    <Lifetotal>
-                    <button onClick={decreaseLife2}><Minus /></button>
-                    <div>{startingLife2}</div>
-                    <button onClick={increaseLife2}><Plus /></button>
-                    </Lifetotal>
-                </Player2> */}
-                <ChooseNumberOfPlayers numberOfPlayers={numberOfPlayers} setNumberOfPlayers={setNumberOfPlayers} playerArray={playerArray} setPlayerArray={setPlayerArray}/>
-            </LifetrackerSection>
-        </>
-    )
-}
+                  </Player1>
+                );
+              })}
+            {!menuOpened && <button onClick={menu}>Menu</button>}
+            {numberOfPlayers && numberOfPlayers !== 0 ? null : (
+              <ChooseNumberOfPlayers
+                numberOfPlayers={numberOfPlayers}
+                setNumberOfPlayers={setNumberOfPlayers}
+                playerArray={playerArray}
+                setPlayerArray={setPlayerArray}
+              />
+            )}
+          </>
+        )}
+        </>}
+      </LifetrackerSection>
+    </>
+  );
+};
 
-export default Lifetracker
+export default Lifetracker;
 
 const LifetrackerSection = styled.section`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-height: 100vh;
-`
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 const Player1 = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border: 0.1rem solid black;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid black;
+`;
 
 const Player2 = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border: 0.1rem solid black;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid black;
+`;
 
-const Title = styled.h3`
-
-`
+const Title = styled.h3``;
 
 const Lifetotal = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

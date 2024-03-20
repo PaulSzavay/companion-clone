@@ -1,7 +1,15 @@
+import { useState } from "react"
 import styled from "styled-components"
 
 
 const ChooseNumberOfPlayers = ({numberOfPlayers, setNumberOfPlayers, playerArray, setPlayerArray}) => {
+
+    const [dropdown, setDropdown] = useState(false)
+
+
+    const activate = () => {
+        setDropdown(!dropdown)
+    }
 
 const selectNumber = (e) =>{
     setNumberOfPlayers(parseInt(e.target.value))
@@ -10,21 +18,30 @@ const selectNumber = (e) =>{
         playerOrder.push({number:i+1, playerName:`Player${i+1}`, startingLife: 20})
     }
     setPlayerArray(playerOrder)
+    setDropdown("remove")
 }
+
 
 
     return (
         <>
+        {dropdown !== "remove" &&
+        <>
         <p>how many?</p>
         <Dropdown>
-            <DropdownButton>Dropdown</DropdownButton>
+            <DropdownButton onClick={activate}>How Many Players?</DropdownButton>
             <DropdownContent>
-                <DropdownOption onClick={selectNumber} value={1}>1</DropdownOption>
+            {dropdown &&
+            <>
                 <DropdownOption onClick={selectNumber} value={2}>2</DropdownOption>
                 <DropdownOption onClick={selectNumber} value={3}>3</DropdownOption>
                 <DropdownOption onClick={selectNumber} value={4}>4</DropdownOption>
+            </>
+            }
             </DropdownContent>
         </Dropdown>
+        </>
+        }
         </>
     )
 }
@@ -40,14 +57,16 @@ const Dropdown = styled.div`
 
 /* Dropdown Button */
 const DropdownButton = styled.button` 
-    background-color: #04AA6D;
+    background-color: #280274;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
+    cursor: pointer;
+    position: relative;
 
 &:hover{
-    background-color: #3e8e41;
+    background-color: #4102bf;
 }
 
 /* &:hover .dropdown-content{
@@ -57,15 +76,11 @@ const DropdownButton = styled.button`
 
   /* Dropdown Content (Hidden by Default) */
 const DropdownContent = styled.div`
-    display: none;
+    display: block;
     position: absolute;
     background-color: #f1f1f1;
 
 
-${Dropdown}:hover & {
-    display: block;
-
-}
 `
 
   /* Links inside the dropdown */
@@ -74,6 +89,7 @@ const DropdownOption = styled.button`
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    width: 10.875rem;
 
 &:hover{
     background-color: #ddd;

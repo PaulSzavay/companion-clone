@@ -39,7 +39,7 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
-background-color: #FE7A36;
+background-color: #E9F6FF;
 z-index: 50;
 `
 
