@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import GlobalStyles from './GlobalStyles';
-import Header from './Components/Header/Header';
-import Homepage from './Components/Homepage';
-import Lifetracker from './Components/Lifetracker';
-import Options from './Components/Options';
-import DiceRoll from './Components/DiceRoll';
-import CoinFlip from './Components/CoinFlip';
-import Profiles from './Components/Profiles';
+import GlobalStyles from './GlobalStyles'
+import Header from './components/Header/Header';
+import Homepage from './components/Homepage';
+import Lifetracker from './components/Lifetracker';
+import Options from './components/Options';
+import DiceRoll from './components/DiceRoll';
+import CoinFlip from './components/CoinFlip';
+import Profiles from './components/Profiles';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
         <Route path="/diceroll" element={<DiceRoll />}/>
         <Route path="/coinflip" element={<CoinFlip />}/>
         <Route path="/profiles" element={<Profiles />}/>
+        <Route path="/signin" element={<SignIn />}/>
+        <Route path="/signup" element={<SignUp />}/>
       </Routes>
     </Router>
     </>

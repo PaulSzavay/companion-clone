@@ -9,6 +9,8 @@ const Nav = ({open, changeOpenValue}) => {
             <List open={open}>
                 <li><Linkto onClick={changeOpenValue} to="/lifetracker">Lifetracker</Linkto></li>
                 <li><Linkto onClick={changeOpenValue} to="/options">Options</Linkto></li>
+                <li><Linkto onClick={changeOpenValue} to="/signin">SignIn</Linkto></li>
+                <li><Linkto onClick={changeOpenValue} to="/signup">SignUp</Linkto></li>
             </List>
         </>
     )

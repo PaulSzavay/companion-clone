@@ -80,13 +80,12 @@ const DiceRoll = () => {
         <DiceRollingSection>
             <ImagesOfDice>
                 {diceSelected.length > 0 && 
-                diceSelected.map((dice) => {
+                diceSelected.map((dice, index) => {
                     return(
                         <>
-                        <SomeDiv>
-                        {diceRolled && <p>{dice.roll}</p>}
-                        
+                        <SomeDiv key={index}>
                         <Dice>{dice.name}</Dice>
+                        {diceRolled && <p>{dice.roll}</p>}
                         </SomeDiv>
                         </>
                     )
@@ -104,7 +103,7 @@ const DiceRoll = () => {
             )})}
             </DiceButtonDiv>
             <RollButtonDiv>
-            {diceSelected.length > 0 && <button onClick={rollDice}>Roll</button>}
+            {diceSelected.length > 0 && <button onClick={rollDice}>{diceRolled ? "Reroll" : "Roll"}</button>}
             {diceRolled && <button onClick={reset}>Reset</button>}
             </RollButtonDiv>
         </DiceRollingSection>
