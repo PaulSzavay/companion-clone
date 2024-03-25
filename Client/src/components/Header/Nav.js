@@ -1,7 +1,13 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { UserContext } from "../UserContext"
 
 const Nav = ({open, changeOpenValue}) => {
+
+    const {currentUser, setCurrentUser, loggedInUser, setLoggedInUser} = useContext(UserContext)
+
+    console.log({"currentUser":currentUser, setCurrentUser, loggedInUser, setLoggedInUser})
 
 
     return(
