@@ -9,6 +9,7 @@ import CoinFlip from './Components/CoinFlip';
 import Profiles from './Components/Profiles';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
+import Profile from './Components/Profile';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/profiles" element={<Profiles />}/>
         <Route path="/signin" element={<SignIn />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/profile" element={<Profile />}/>
       </Routes>
     </Router>
     </>

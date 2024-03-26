@@ -83,8 +83,8 @@ const DiceRoll = () => {
                 diceSelected.map((dice, index) => {
                     return(
                         <>
-                        <SomeDiv key={index}>
-                        <Dice>{dice.name}</Dice>
+                        <SomeDiv >
+                        <Dice key={index}>{dice.name}</Dice>
                         {diceRolled && <p>{dice.roll}</p>}
                         </SomeDiv>
                         </>

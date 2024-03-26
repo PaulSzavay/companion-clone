@@ -10,12 +10,15 @@ app.use(morgan("tiny"));
 // endpoints
 const { createUser } = require('./handlers/createUser');
 const { getUser } = require('./handlers/getUser');
+const { signIn } = require('./handlers/signIn');
 
 
 
 app.post("/api/createuser", createUser)
 
-app.get("/api/users/:email", getUser)
+app.get("/api/user/:email", getUser)
+
+app.post("/api/finduser", signIn)
 
 const PORT = 5762
 

@@ -23,7 +23,7 @@ const client = new MongoClient(MONGO_URI, options);
         console.log(user)
 
         if(user){
-            return response.status(200).json({status:200, data: {email:user.email, name:user.name}});
+            return response.status(200).json({status:200, data: {email:user.email, name:user.name, username:user.username}});
         }
         else {
             return response.status(404).json({status:404, message: `No user found with ${userId} id`});

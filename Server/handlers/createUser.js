@@ -30,7 +30,6 @@ const createUser = async (request, response) => {
     try {
         await client.connect();
         const db = client.db("CompanionClone");
-
         const existingUser = await db.collection("Users").findOne({ email });
         if (existingUser) {
         return response.status(409).json({

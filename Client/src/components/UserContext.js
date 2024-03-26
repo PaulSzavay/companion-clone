@@ -25,9 +25,10 @@ useEffect(()=>{
   fetch(`/api/user/${currentUser}`)
   .then((response) => response.json())
   .then((parsed) => {
+    console.log(parsed)
     if(parsed.status === 200){
       localStorage.setItem("user", JSON.stringify(parsed.data.email))
-      setLoggedInUser(parsed.data.name)
+      setLoggedInUser(parsed.data.username)
     }
     })
   .catch((error) => {

@@ -58,7 +58,7 @@ const Lifetracker = () => {
         ) : (
           <>
             <h2>Lifetracker</h2>
-            {playerArray.length > 0 &&
+            {playerArray && playerArray.length > 0 &&
               playerArray.map((player, index) => {
                 return (
                   <Player1 key={index}>
