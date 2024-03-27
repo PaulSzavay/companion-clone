@@ -32,7 +32,6 @@ const SignIn = () => {
     })
       .then((response) => response.json())
       .then((parsed) => {
-        console.log(parsed)
         if (parsed.status === 200) {
           localStorage.setItem("user", JSON.stringify(parsed.data.email));
           setCurrentUser(parsed.data.email)

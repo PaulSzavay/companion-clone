@@ -35,7 +35,6 @@ const SignUp = () => {
     })
       .then((response) => response.json())
       .then((parsed) => {
-        console.log(parsed)
         if (parsed.status === 201) {
           localStorage.setItem("user", JSON.stringify(parsed.data.email));
           setCurrentUser(parsed.data.email)

@@ -11,6 +11,7 @@ app.use(morgan("tiny"));
 const { createUser } = require('./handlers/createUser');
 const { getUser } = require('./handlers/getUser');
 const { signIn } = require('./handlers/signIn');
+const { createEvent } = require('./handlers/createEvent');
 
 
 
@@ -19,6 +20,8 @@ app.post("/api/createuser", createUser)
 app.get("/api/user/:email", getUser)
 
 app.post("/api/finduser", signIn)
+
+app.post("/api/createevent", createEvent)
 
 const PORT = 5762
 

@@ -98,7 +98,7 @@ const DiceRoll = () => {
             {DiceInformation.map((dice, index)=>{
                 return (
                 <>
-                <button onClick={() => displayDice(index)}>{dice.name}</button>
+                <button key={index} onClick={() => displayDice(index)}>{dice.name}</button>
                 </>
             )})}
             </DiceButtonDiv>

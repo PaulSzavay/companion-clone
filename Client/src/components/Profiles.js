@@ -1,13 +1,20 @@
-import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import styled from "styled-components"
 
 
 const Profiles = () => {
 
-    const location = useLocation()
+    const [playerArray, setPlayerArray] = useState([])
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const data = location.state
+
+    useEffect(()=>{
+        setPlayerArray(data.playerArray)
+    }, [])
 
     const [name, setName] = useState("")
 
@@ -17,6 +24,16 @@ const Profiles = () => {
 
     const submit = (e, index) => {
         e.preventDefault();
+        let temporaryArray = [...playerArray]
+        let temporaryPlayer = temporaryArray[index]
+        temporaryPlayer.playerName = `${name}`
+        setPlayerArray(temporaryArray)
+    }
+
+    const newData = {numberOfPlayers:data.numberOfPlayers, playerArray}
+
+    const lifetracker = () => {
+        navigate('/lifetracker', {state: newData})
     }
 
 
@@ -24,16 +41,19 @@ const Profiles = () => {
         <>
         <ProfilesSection>
         <h3> profiles </h3>
-        {data.playerArray.map((player, index)=>{
+        {data && data.playerArray.map((player, index)=>{
             return(
                 <>
-                <Form key={index}>
+                <Form key={index} onSubmit={(e)=>submit(e, index)}>
                 <ChangeName onChange={(e)=>inputChange(e, index)} type="text" id="name" placeholder={player.playerName} />
-                <button onSubmit={(e)=>submit(e, index)}>Submit</button>
+                <button>Change Name</button>
                 </Form>
+                
                 </>
             )
         })}
+        
+        <button onClick={lifetracker}>Return to game</button>
         </ProfilesSection>
         </>
     )

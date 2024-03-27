@@ -7,7 +7,6 @@ const Nav = ({open, changeOpenValue}) => {
 
     const {currentUser, setCurrentUser, loggedInUser, setLoggedInUser} = useContext(UserContext)
 
-    console.log({"currentUser":currentUser, setCurrentUser, loggedInUser, setLoggedInUser})
 
 
     return(

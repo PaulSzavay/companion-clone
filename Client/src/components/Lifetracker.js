@@ -48,7 +48,6 @@ const Lifetracker = () => {
     setMenuOpened(!menuOpened);
   };
 
-
   return (
     <>
       <LifetrackerSection>
