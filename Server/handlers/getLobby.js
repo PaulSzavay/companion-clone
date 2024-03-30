@@ -9,22 +9,22 @@ const options = {
     useUnifiedTopology: true,
 }
 
-const getUser = async (request, response) => {
+const getLobby = async (request, response) => {
 
-const {email} = request.params;
+const {lobbyId} = request.params;
 
 const client = new MongoClient(MONGO_URI, options);
 
     try {
         await client.connect();
         const db = client.db("CompanionClone")
-        const user = await db.collection("Users").findOne({ email });
+        const lobby = await db.collection("Events").findOne({lobbyId});
 
-        if(user){
-            return response.status(200).json({status:200, data: {email:user.email, name:user.name, username:user.username}});
+        if(lobby){
+            return response.status(200).json({status:200, data:lobby});
         }
         else {
-            return response.status(404).json({status:404, message: `No user found with ${userId} id`});
+            return response.status(404).json({status:404, message: `No lobby found with ${lobbyId} id`});
         }
     }
     catch (error) {
@@ -37,4 +37,4 @@ const client = new MongoClient(MONGO_URI, options);
 
 }
 
-module.exports = { getUser }
+module.exports = { getLobby }

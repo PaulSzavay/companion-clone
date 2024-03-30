@@ -1,6 +1,6 @@
 "use strict";
 const { MongoClient } = require("mongodb");
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const {generateId} = require("../helpers/generateLobbyId")
 
 
@@ -24,7 +24,9 @@ const createEvent = async (request, response) => {
 
     let lobbyId = generateId();
 
-    const newEvent = await db.collection("Event").insertOne({lobbyId, players:[], phase:"Enrolling"});
+    const newEvent = await db.collection("Events").insertOne({_id:uuidv4(), lobbyId, players:[], phase:"Enrolling", eventOwner:username});
+
+    console.log(newEvent)
 
     if(newEvent){
         response.status(201).json({status: 201, message: "Success, event has been created", lobbyId, eventOwner:username});

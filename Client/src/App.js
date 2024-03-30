@@ -10,6 +10,7 @@ import Profiles from './Components/Profiles';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
+import EventLobby from './Components/EventLobby';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/signin" element={<SignIn />}/>
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/profile" element={<Profile />}/>
+        <Route path="/eventlobby" element={<EventLobby />}/>
       </Routes>
     </Router>
     </>
