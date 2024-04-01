@@ -72,7 +72,6 @@ const Homepage = () => {
     }
 
     const joinLobby = (e) => {
-        console.log(e.target.value)
         setCurrentLobby(e.target.value)
         navigate("/eventlobby")
     }
@@ -88,7 +87,7 @@ const Homepage = () => {
                 <>
                 {index < 8 &&
                 <>
-                <p>Lobby {index+1}</p>
+                <p key={index}>Lobby {index+1}</p>
                 <button value={lobbies.lobbyId} onClick={joinLobby}>{lobbies.lobbyId}</button>
                 </>
                 }

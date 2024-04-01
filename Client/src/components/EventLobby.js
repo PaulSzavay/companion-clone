@@ -1,8 +1,9 @@
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { LobbyContext } from "./LobbyContext"
 import { ParticipantContext } from "./ParticipantContext"
 import { UserContext } from "./UserContext"
+import { useNavigate } from "react-router-dom"
 
 
 const EventLobby = () => {
@@ -13,24 +14,55 @@ const EventLobby = () => {
 
     const { currentUser, setCurrentUser, loggedInUser, setLoggedInUser } = useContext(UserContext)
 
-    console.log(fullLobby)
+    const [joined, setJoined] = useState(false)
 
-    let joined = ""
+    const [owner, setOwner] = useState(false)
+
+    const navigate = useNavigate()
+
+console.log(currentLobby)
+
+    useEffect(()=>{
+        if(fullLobby.players.includes(loggedInUser)){
+            setJoined(true)
+        }
+        if(fullLobby.eventOwner.includes(loggedInUser)){
+            setOwner(true)
+        }
+    }, [fullLobby])
+
 
     const checkIfJoined = () => {
         
     }
 
-    const leaveLobby = () => {
-
+    const deleteLobby = (event) => {
+        event.preventDefault();
+        fetch("/api/deleteevent", {
+        method: "POST",
+        body: JSON.stringify( {currentLobby} ),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((parsed) => {
+          if(parsed.status===204){
+            navigate("/")
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
 
     return (
         <>
         <h2>Current Lobby</h2>
-        <h2>{fullLobby.lobbyId}</h2>
-        <button>leave</button>
-        <button>delete lobby</button>
+        {fullLobby && <h2>{fullLobby.lobbyId}</h2>}
+        {joined && <button>leave</button>}
+        {owner && <button onClick={deleteLobby}>delete lobby</button>}
         </>
     )
 }
