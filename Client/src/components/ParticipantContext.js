@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { UserContext } from "./UserContext";
+import { LobbyContext } from "./LobbyContext";
 
 export const ParticipantContext = createContext(null);
 
 export const ParticipantProvider = ({children}) => {
 
     const {currentUser, setCurrentUser, loggedInUser, setLoggedInUser} = useContext(UserContext)
+
+    const {currentLobby, setCurrentLobby} = useContext(LobbyContext)
 
   const [currentParticipant, setCurrentParticipant] = useState(() => {
 
@@ -37,17 +40,13 @@ useEffect(()=>{
     }
     const uniqueArray = removeDuplicates(parsed.events.ownerArray, parsed.events.playerArray);
       localStorage.setItem("participant", JSON.stringify(uniqueArray));
-      console.log(uniqueArray)
       setCurrentParticipant(uniqueArray)
     }
     })
   .catch((error) => {
       console.log(error)
   })
-},[]);
-
-
-console.log(currentParticipant)
+},[currentLobby]);
 
 // passing currentParticipant, setCurrentParticipant to all children
   return (

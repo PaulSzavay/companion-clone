@@ -30,6 +30,8 @@ const findEventsPerPlayer = async (request, response) => {
 
     const playerArray = await findPlayers.toArray();
 
+    console.log(playerArray)
+
     if(playerArray || ownerArray){
         response.status(200).json({status:200, events:{playerArray, ownerArray}})
     }

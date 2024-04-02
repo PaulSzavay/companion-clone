@@ -20,16 +20,37 @@ const EventLobby = () => {
 
     const navigate = useNavigate()
 
-console.log(currentLobby)
+    // useEffect(()=>{
+    //     if(fullLobby.players.includes(loggedInUser)){
+    //         setJoined(true)
+    //     }
+    //     if(fullLobby.eventOwner.includes(loggedInUser)){
+    //         setOwner(true)
+    //     }
+    // }, [fullLobby])
 
     useEffect(()=>{
-        if(fullLobby.players.includes(loggedInUser)){
-            setJoined(true)
-        }
-        if(fullLobby.eventOwner.includes(loggedInUser)){
-            setOwner(true)
-        }
-    }, [fullLobby])
+    fetch("/api/checkIfPlayerOrOwner", {
+        method: "POST",
+        body: JSON.stringify({username:loggedInUser, lobbyId:currentLobby}),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((parsed) => {
+            if(parsed.status === 200){
+                setOwner(parsed.owner)
+                setJoined(parsed.joined)
+            }
+         console.log(parsed)
+        })
+        .catch((error) => {
+          window.alert(error);
+        });
+
+    }, [])
 
 
     const checkIfJoined = () => {
@@ -50,6 +71,7 @@ console.log(currentLobby)
         .then((parsed) => {
           if(parsed.status===204){
             navigate("/")
+            setCurrentLobby("")
           }
         })
         .catch((error) => {
@@ -60,7 +82,7 @@ console.log(currentLobby)
     return (
         <>
         <h2>Current Lobby</h2>
-        {fullLobby && <h2>{fullLobby.lobbyId}</h2>}
+        {fullLobby && <h2>{currentLobby}</h2>}
         {joined && <button>leave</button>}
         {owner && <button onClick={deleteLobby}>delete lobby</button>}
         </>

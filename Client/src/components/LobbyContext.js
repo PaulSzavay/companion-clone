@@ -36,7 +36,7 @@ useEffect(()=>{
   })
 },[currentLobby]);
 
-console.log(currentLobby)
+console.log(fullLobby)
 
 // passing currentLobby, setCurrentLobby to all children
   return (

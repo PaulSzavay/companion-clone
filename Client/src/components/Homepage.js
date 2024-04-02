@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { UserContext } from "./UserContext"
 import { useNavigate } from "react-router-dom"
 import { LobbyContext } from "./LobbyContext"
@@ -17,6 +17,7 @@ const Homepage = () => {
     const { currentLobby, setCurrentLobby } = useContext(LobbyContext)
 
     const { currentParticipant, setCurrentParticipant } = useContext(ParticipantContext)
+
 
     const createEvent = () => {
         fetch("/api/createevent", {
