@@ -69,22 +69,56 @@ const EventLobby = () => {
       })
         .then((response) => response.json())
         .then((parsed) => {
-          if(parsed.status===204){
-            navigate("/")
-            setCurrentLobby("")
-          }
+            console.log(parsed)
         })
         .catch((error) => {
           console.error(error);
         });
     }
 
+
+    const startEvent = () => {
+        // lets try randomizing the players array
+        fetch("/api/startevent", {
+            method: "POST",
+            body: JSON.stringify( {currentLobby} ),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          })
+            .then((response) => response.json())
+            .then((parsed) => {
+                if(parsed.status===200){
+                    setCurrentLobby(parsed.findLobby.lobbyId)
+                    setFullLobby(parsed.findLobby)
+                    navigate("/eventhost")
+                }
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+    }
+
     return (
         <>
         <h2>Current Lobby</h2>
+        {fullLobby && <h2>{fullLobby.phase}</h2>}
         {fullLobby && <h2>{currentLobby}</h2>}
-        {joined && <button>leave</button>}
-        {owner && <button onClick={deleteLobby}>delete lobby</button>}
+        {joined && <button>Leave Event</button>}
+        {owner && <button onClick={deleteLobby}>Delete Event</button>}
+        {owner && 
+        <>
+        {fullLobby.players.map((player, index)=>{
+            return(
+                <p>Player {index+1}: {player}</p>
+            )
+        })}
+
+        <button onClick={startEvent}>Start Event</button>
+        </>
+        }
+        
         </>
     )
 }

@@ -72,24 +72,29 @@ const Homepage = () => {
         });
     }
 
-    const joinLobby = (e) => {
-        setCurrentLobby(e.target.value)
-        navigate("/eventlobby")
+    const returnToLobby = (e) => {
+        console.log(e.target.value)
+        // setCurrentLobby(e.target.value)
+        // navigate("/eventlobby")
+    }
+
+    const joinEvent = (e) => {
+        navigate("/joinevent")
     }
 
     return (
         <>
         {!loggedInUser && <p>Signup or Signin to gain access to events</p>}
         {loggedInUser && <button onClick={createEvent}>Create an event</button>}
-        {loggedInUser && <button>Join an event</button>}
-        <button onClick={checkLobbies}>Check Lobbies</button>
+        {loggedInUser && <button onClick={joinEvent}>Join an event</button>}
+        {/* <button onClick={checkLobbies}>Check Lobbies</button> TO BE DELETED */}
         {currentParticipant && currentParticipant.map((lobbies, index)=>{
             return(
                 <>
                 {index < 8 &&
                 <>
                 <p key={index}>Lobby {index+1}</p>
-                <button value={lobbies.lobbyId} onClick={joinLobby}>{lobbies.lobbyId}</button>
+                <button value={lobbies.lobbyId} onClick={returnToLobby}>{lobbies.lobbyId}</button>
                 </>
                 }
                 {index > 8 &&

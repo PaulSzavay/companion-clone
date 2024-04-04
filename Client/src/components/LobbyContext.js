@@ -34,7 +34,7 @@ useEffect(()=>{
   .catch((error) => {
       console.log(error)
   })
-},[currentLobby]);
+},[]);
 
 console.log(fullLobby)
 

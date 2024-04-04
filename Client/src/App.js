@@ -11,6 +11,8 @@ import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
 import EventLobby from './Components/EventLobby';
+import JoinEvent from './Components/JoinEvent';
+import EventOwnerPage from './Components/EventOwnerPage';
 
 const App = () => {
   return (
@@ -29,6 +31,8 @@ const App = () => {
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/profile" element={<Profile />}/>
         <Route path="/eventlobby" element={<EventLobby />}/>
+        <Route path="/joinevent" element={<JoinEvent />}/>
+        <Route path="/eventhost" element={<EventOwnerPage />}/>
       </Routes>
     </Router>
     </>

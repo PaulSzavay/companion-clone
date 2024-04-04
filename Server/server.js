@@ -16,6 +16,8 @@ const { getLobby } = require('./handlers/getLobby');
 const { findEventsPerPlayer } = require('./handlers/findEventsPerPlayer');
 const { deleteEvent } = require('./handlers/deleteEvent');
 const { checkIfPlayerOrOwner } = require('./handlers/checkIfPlayerOrOwner');
+const { joinLobby } = require('./handlers/joinLobby');
+const { startEvent } = require('./handlers/startEvent');
 
 
 
@@ -36,6 +38,10 @@ app.get("/api/participant/:email", findEventsPerPlayer)
 app.post("/api/deleteevent", deleteEvent)
 
 app.post("/api/checkIfPlayerOrOwner", checkIfPlayerOrOwner)
+
+app.post("/api/joinevent", joinLobby)
+
+app.post("/api/startevent", startEvent)
 
 const PORT = 5762
 
