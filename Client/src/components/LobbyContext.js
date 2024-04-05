@@ -1,11 +1,13 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { ParticipantContext } from "./ParticipantContext";
 
 export const LobbyContext = createContext(null);
 
 export const LobbyProvider = ({children}) => {
 
+    const {currentParticipant, setCurrentParticipant, fetchData} = useContext(ParticipantContext)
+
   const [currentLobby, setCurrentLobby] = useState(() => {
-    
 
     let lobby = localStorage.getItem("lobby");
     
@@ -24,7 +26,6 @@ useEffect(()=>{
   fetch(`/api/lobby/${currentLobby}`)
   .then((response) => response.json())
   .then((parsed) => {
-    console.log(parsed)
     if(parsed.status === 200){
       localStorage.setItem("lobby", JSON.stringify(parsed.data.lobbyId))
       setCurrentLobby(parsed.data.lobbyId)
@@ -34,7 +35,7 @@ useEffect(()=>{
   .catch((error) => {
       console.log(error)
   })
-},[currentLobby]);
+},[currentParticipant]);
 
 
 // passing currentLobby, setCurrentLobby to all children

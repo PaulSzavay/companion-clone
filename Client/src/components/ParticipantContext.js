@@ -9,8 +9,6 @@ export const ParticipantProvider = ({children}) => {
 
     const {currentUser, setCurrentUser, loggedInUser, setLoggedInUser} = useContext(UserContext)
 
-    const {currentLobby, setCurrentLobby} = useContext(LobbyContext)
-
   const [currentParticipant, setCurrentParticipant] = useState(() => {
 
     let participant = localStorage.getItem("Participant");
@@ -85,7 +83,7 @@ console.log(currentParticipant)
 
 // passing currentParticipant, setCurrentParticipant to all children
   return (
-    <ParticipantContext.Provider value={{currentParticipant, setCurrentParticipant}}>
+    <ParticipantContext.Provider value={{currentParticipant, setCurrentParticipant, fetchData}}>
             {children}
     </ParticipantContext.Provider>
   )

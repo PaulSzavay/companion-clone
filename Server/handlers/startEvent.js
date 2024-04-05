@@ -73,7 +73,9 @@ const client = new MongoClient(MONGO_URI, options);
             const totalTables = numberTables;
             const tables = distributePeople(playerArray, totalTables);
 
-        const updateEvent = await db.collection("Events").updateOne({ lobbyId:currentLobby}, { $set: { "phase": "Draft" }, $set: {"tables": tables}});
+        const updateEvent = await db.collection("Events").updateOne({ lobbyId:currentLobby}, { $set: { "phase": "Draft", "tables": tables}});
+
+        console.log(updateEvent)
 
         response.status(200).json({status:200, tables, findLobby, updateEvent, message:"Event has started"})
 

@@ -1,6 +1,7 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { LobbyContext } from "./LobbyContext"
 import styled from "styled-components"
+import { ParticipantContext } from "./ParticipantContext"
 
 
 
@@ -10,10 +11,20 @@ const EventOwnerPage = () => {
 
 const {currentLobby, setCurrentLobby, fullLobby, setFullLobby} = useContext(LobbyContext)
 
+const {currentParticipant, fetchData} = useContext(ParticipantContext)
+
+useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+console.log(currentParticipant.find((lobby)=>{return(lobby.lobbyId === currentLobby)}))
+
+
     return (
         <>
         <Section>        
             <Title>Event Owner Page</Title>
+                {fullLobby.tables &&
                 <Div>
                     {fullLobby.tables.map((table, index)=>{
                         const half = Math.ceil(table.length / 2);
@@ -23,12 +34,12 @@ const {currentLobby, setCurrentLobby, fullLobby, setFullLobby} = useContext(Lobb
                             <>
                                 <TableContainer key={index}>
                                     <OutsideTop>
-                                        {topHalf.map((person, index) => (
+                                        {topHalf && topHalf.map((person, index) => (
                                         <Person key={index}>{person}</Person>
                                         ))}
                                     </OutsideTop>
                                     <OutsideBottom>
-                                        {bottomHalf.map((person, index) => (
+                                        {bottomHalf && bottomHalf.map((person, index) => (
                                         <Person key={index}>{person}</Person>
                                         ))}
                                     </OutsideBottom>
@@ -36,7 +47,8 @@ const {currentLobby, setCurrentLobby, fullLobby, setFullLobby} = useContext(Lobb
                             </>
                         )
                     })}
-                </Div>
+                </Div>}
+                {!fullLobby.tables && <p>....loading</p>}
                 <button>Continue to Round 1</button>
         </Section>
         </>

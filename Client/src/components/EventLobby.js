@@ -10,7 +10,7 @@ const EventLobby = () => {
 
     const { currentLobby, setCurrentLobby, fullLobby, setFullLobby } = useContext(LobbyContext)
 
-    const { currentParticipant, setCurrentParticipant } = useContext(ParticipantContext)
+    const { currentParticipant, setCurrentParticipant, fetchData } = useContext(ParticipantContext)
 
     const { currentUser, setCurrentUser, loggedInUser, setLoggedInUser } = useContext(UserContext)
 
@@ -22,7 +22,9 @@ const EventLobby = () => {
 
     const navigate = useNavigate()
 
-    console.log(fullLobby)
+    useEffect(() => {
+        fetchData();
+      }, [fetchData]);
     // useEffect(()=>{
     //     if(fullLobby.players.includes(loggedInUser)){
     //         setJoined(true)
@@ -47,7 +49,6 @@ const EventLobby = () => {
                 setOwner(parsed.owner)
                 setJoined(parsed.joined)
             }
-         console.log(parsed)
         })
         .catch((error) => {
           window.alert(error);
@@ -94,6 +95,7 @@ const EventLobby = () => {
             .then((response) => response.json())
             .then((parsed) => {
                 if(parsed.status===200){
+                    fetchData()
                     setCurrentLobby(parsed.findLobby.lobbyId)
                     setFullLobby(parsed.findLobby)
                     navigate("/eventhost")

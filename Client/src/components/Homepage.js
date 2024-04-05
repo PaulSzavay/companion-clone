@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { UserContext } from "./UserContext"
 import { useNavigate } from "react-router-dom"
 import { LobbyContext } from "./LobbyContext"
@@ -16,7 +16,12 @@ const Homepage = () => {
 
     const { currentLobby, setCurrentLobby, fullLobby } = useContext(LobbyContext)
 
-    const { currentParticipant, setCurrentParticipant } = useContext(ParticipantContext)
+    const { currentParticipant, setCurrentParticipant, fetchData } = useContext(ParticipantContext)
+
+
+    useEffect(() => {
+        fetchData();
+      }, [fetchData]);
 
 
     const createEvent = () => {
@@ -72,12 +77,12 @@ const Homepage = () => {
     // }
 
     const returnToLobby = (e) => {
-
+        fetchData();
         const findLobby = currentParticipant.find((lobby)=>{
             return(lobby.lobbyId === e.target.value)
         })
         console.log(findLobby)
-        if(findLobby.phase === "Enrolling"){
+        if(findLobby.phase === "Enrolling" || findLobby.eventOwner !== loggedInUser){
         setCurrentLobby(e.target.value)
         navigate("/eventlobby")
         }

@@ -9,13 +9,14 @@ import { ParticipantProvider } from './Components/ParticipantContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <LobbyProvider>
+    
       <UserProvider>
         <ParticipantProvider>
+          <LobbyProvider>
           <App />
+          </LobbyProvider>
         </ParticipantProvider>
       </UserProvider>
-    </LobbyProvider>
   </React.StrictMode>
 );
 
