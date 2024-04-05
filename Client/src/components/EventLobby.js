@@ -14,12 +14,15 @@ const EventLobby = () => {
 
     const { currentUser, setCurrentUser, loggedInUser, setLoggedInUser } = useContext(UserContext)
 
+    const [error, setError] = useState("")
+
     const [joined, setJoined] = useState(false)
 
     const [owner, setOwner] = useState(false)
 
     const navigate = useNavigate()
 
+    console.log(fullLobby)
     // useEffect(()=>{
     //     if(fullLobby.players.includes(loggedInUser)){
     //         setJoined(true)
@@ -79,6 +82,7 @@ const EventLobby = () => {
 
     const startEvent = () => {
         // lets try randomizing the players array
+        if(fullLobby.players.length > 5){
         fetch("/api/startevent", {
             method: "POST",
             body: JSON.stringify( {currentLobby} ),
@@ -97,7 +101,15 @@ const EventLobby = () => {
             })
             .catch((error) => {
               console.error(error);
-            });
+            });}
+            else{
+                setError("Not enough players to start event")
+            }
+    }
+
+
+    const removeError = () => {
+        setError("")
     }
 
     return (
@@ -118,9 +130,42 @@ const EventLobby = () => {
         <button onClick={startEvent}>Start Event</button>
         </>
         }
-        
+        <Section>
+        {error && <ErrorDiv>
+            <XButton onClick={removeError}>X</XButton>
+            <p>{error}</p>
+        </ErrorDiv>
+        }
+        </Section>
         </>
     )
 }
 
 export default EventLobby
+
+
+
+const ErrorDiv = styled.div`
+border: 0.1rem solid black;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+margin-top: 10rem;
+padding: 1rem;
+width: 50rem;
+`
+
+const XButton = styled.button`
+margin-left: 15rem;
+font-size: 1rem;
+padding: 0.5rem;
+height: 2.5rem;
+width: 2.5rem;
+`
+
+const Section = styled.section`
+display: flex;
+justify-content: center;
+align-items: center;
+`
