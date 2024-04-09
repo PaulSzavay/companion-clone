@@ -34,7 +34,7 @@ const { checkIfPlayerOrOwner } = require('./handlers/checkIfPlayerOrOwner');
 const { joinLobby } = require('./handlers/joinLobby');
 const { startEvent } = require('./handlers/startEvent');
 
-app.get('/hello', (_, res) => res.send('Hello from AlphaFemme')) (`this is for the health check, always returns 200`)
+app.get('/hello', (_, res) => res.send('Hello from CompanionClone'))
 
 app.post("/api/createuser", createUser)
 

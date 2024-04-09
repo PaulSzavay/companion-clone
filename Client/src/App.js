@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import GlobalStyles from './GlobalStyles'
-import Header from './Components/Header/Header';
-import Homepage from './Components/Homepage';
-import Lifetracker from './Components/Lifetracker';
-import Options from './Components/Options';
-import DiceRoll from './Components/DiceRoll';
-import CoinFlip from './Components/CoinFlip';
-import Profiles from './Components/Profiles';
-import SignIn from './Components/SignIn';
-import SignUp from './Components/SignUp';
-import Profile from './Components/Profile';
-import EventLobby from './Components/EventLobby';
-import JoinEvent from './Components/JoinEvent';
-import EventOwnerPage from './Components/EventOwnerPage';
-import PairingPage from './Components/PairingPage';
+import Header from './Header/Header';
+import Homepage from './Homepage';
+import Lifetracker from './Lifetracker';
+import Options from './Options';
+import DiceRoll from './DiceRoll';
+import CoinFlip from './CoinFlip';
+import Profiles from './Profiles';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import Profile from './Profile';
+import EventLobby from './EventLobby';
+import JoinEvent from './JoinEvent';
+import EventOwnerPage from './EventOwnerPage';
+import PairingPage from './PairingPage';
 
 const App = () => {
   return (

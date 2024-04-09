@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { UserProvider } from './Components/UserContext';
-import { LobbyProvider } from './Components/LobbyContext';
-import { ParticipantProvider } from './Components/ParticipantContext';
+import { UserProvider } from './UserContext';
+import { LobbyProvider } from './LobbyContext';
+import { ParticipantProvider } from './ParticipantContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
