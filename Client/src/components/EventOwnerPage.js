@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { LobbyContext } from "./LobbyContext"
 import styled from "styled-components"
 import { ParticipantContext } from "./ParticipantContext"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -13,14 +14,14 @@ const {currentLobby, setCurrentLobby, fullLobby, setFullLobby} = useContext(Lobb
 
 const {currentParticipant, fetchData} = useContext(ParticipantContext)
 
+    const navigate = useNavigate()
+
 useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-// console.log(currentParticipant.find((lobby)=>{return(lobby.lobbyId === currentLobby)}))
-
 const pairing = () => {
-
+    navigate("/pairingpage")
 }
 
     return (
@@ -32,7 +33,7 @@ const pairing = () => {
                     {fullLobby.tables ? fullLobby.tables.map((table, index)=>{
                         const half = Math.ceil(table.length / 2);
                         const topHalf = table.slice(0, half);
-                        const bottomHalf = table.slice(half);
+                        const bottomHalf = table.slice(half).reverse();
                         return(
                             <>
                                 <TableContainer key={index}>
@@ -56,7 +57,7 @@ const pairing = () => {
                         </Loading>
                 }
                 </Div>}
-                <Button>Continue to Round 1</Button>
+                {fullLobby.tables && <Button onClick={pairing}>Continue to Round 1</Button>}
         </Section>
         </>
     )

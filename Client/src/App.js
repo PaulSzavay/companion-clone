@@ -13,6 +13,7 @@ import Profile from './Components/Profile';
 import EventLobby from './Components/EventLobby';
 import JoinEvent from './Components/JoinEvent';
 import EventOwnerPage from './Components/EventOwnerPage';
+import PairingPage from './Components/PairingPage';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/eventlobby" element={<EventLobby />}/>
         <Route path="/joinevent" element={<JoinEvent />}/>
         <Route path="/eventhost" element={<EventOwnerPage />}/>
+        <Route path="/pairingpage" element={<PairingPage />}/>
       </Routes>
     </Router>
     </>
