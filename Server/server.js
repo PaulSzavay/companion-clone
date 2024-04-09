@@ -2,7 +2,7 @@
 const express = require('express');
 const morgan = require("morgan");
 const app = express();
-
+const PORT = process.env.PORT || 5762
 
 
       express()
@@ -58,7 +58,7 @@ app.post("/api/joinevent", joinLobby)
 
 app.post("/api/startevent", startEvent)
 
-const PORT = 5762
+
 
 
 
