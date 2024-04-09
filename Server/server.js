@@ -4,6 +4,17 @@ const morgan = require("morgan");
 const app = express();
 
 
+express().use(function (_req, res, next) {
+        res.header("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN);
+        res.header(
+          "Access-Control-Allow-Headers",
+          "Content-Type, Accept, Authorization",
+        );
+        res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+        next();
+      })
+
+
 app.use(express.json());
 app.use(morgan("tiny"));
 
@@ -45,16 +56,6 @@ app.post("/api/startevent", startEvent)
 
 const PORT = 5762
 
-
-       app.use(function (_req, res, next) {
-        res.header("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN);
-        res.header(
-          "Access-Control-Allow-Headers",
-          "Content-Type, Accept, Authorization",
-        );
-        res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
-        next();
-      })
 
 
 
