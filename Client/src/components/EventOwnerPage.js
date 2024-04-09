@@ -17,16 +17,19 @@ useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-console.log(currentParticipant.find((lobby)=>{return(lobby.lobbyId === currentLobby)}))
+// console.log(currentParticipant.find((lobby)=>{return(lobby.lobbyId === currentLobby)}))
 
+const pairing = () => {
+
+}
 
     return (
         <>
         <Section>        
             <Title>Event Owner Page</Title>
-                {fullLobby.tables &&
+            {fullLobby &&
                 <Div>
-                    {fullLobby.tables.map((table, index)=>{
+                    {fullLobby.tables ? fullLobby.tables.map((table, index)=>{
                         const half = Math.ceil(table.length / 2);
                         const topHalf = table.slice(0, half);
                         const bottomHalf = table.slice(half);
@@ -46,10 +49,14 @@ console.log(currentParticipant.find((lobby)=>{return(lobby.lobbyId === currentLo
                                 </TableContainer>
                             </>
                         )
-                    })}
+                    })
+                    : 
+                        <Loading>
+                            <p>...loading</p>
+                        </Loading>
+                }
                 </Div>}
-                {!fullLobby.tables && <p>....loading</p>}
-                <button>Continue to Round 1</button>
+                <Button>Continue to Round 1</Button>
         </Section>
         </>
     )
@@ -62,21 +69,21 @@ const Section = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;
-height: 110vh;
-
 `
 
 
 const Title = styled.h2`
-margin: 3rem 0 10rem;
+margin: 3rem;
 `
 
 
 const Div = styled.div`
-display: grid;
+/* display: grid;
 grid-template-columns: 1fr 1fr; 
 grid-gap: 300px; 
-margin-bottom: 10rem;
+margin-bottom: 10rem; */
+display:flex;
+flex-direction: column;
 `
 
 const TableContainer = styled.div`
@@ -84,6 +91,7 @@ position: relative;
 width: 650px;
 height: 250px; /* Adjust height as needed */
 border: 1px solid black;
+margin: 8rem;
 `;
 
 
@@ -112,3 +120,13 @@ display: flex;
 justify-content: space-between;
 padding: 0 20px; /* Adjust padding to align with table */
 `;
+
+
+const Loading = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+const Button = styled.button`
+    margin: 10rem;
+`

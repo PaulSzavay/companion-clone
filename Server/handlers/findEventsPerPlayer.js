@@ -4,14 +4,9 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
 const findEventsPerPlayer = async (request, response) => {
 
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI);
 
   const { email } = request.params
 
@@ -29,8 +24,6 @@ const findEventsPerPlayer = async (request, response) => {
     const findPlayers = await db.collection("Events").find({ "players": findUser.username })
 
     const playerArray = await findPlayers.toArray();
-
-    console.log(playerArray)
 
     if(playerArray || ownerArray){
         response.status(200).json({status:200, events:{playerArray, ownerArray}})

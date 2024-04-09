@@ -20,7 +20,6 @@ const JoinEvent = () => {
         setLobbyCode(e.target.value)
     }
 
-    console.log(loggedInUser)
 
     const joinLobby = (e) => {
         e.preventDefault()

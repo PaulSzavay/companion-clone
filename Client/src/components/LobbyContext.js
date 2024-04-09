@@ -35,7 +35,7 @@ useEffect(()=>{
   .catch((error) => {
       console.log(error)
   })
-},[currentParticipant]);
+},[currentLobby]);
 
 
 // passing currentLobby, setCurrentLobby to all children

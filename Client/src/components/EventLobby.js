@@ -114,6 +114,7 @@ const EventLobby = () => {
         setError("")
     }
 
+
     return (
         <>
         <h2>Current Lobby</h2>
@@ -123,7 +124,7 @@ const EventLobby = () => {
         {owner && <button onClick={deleteLobby}>Delete Event</button>}
         {owner && 
         <>
-        {fullLobby.players.map((player, index)=>{
+        {fullLobby && fullLobby.players.map((player, index)=>{
             return(
                 <p>Player {index+1}: {player}</p>
             )

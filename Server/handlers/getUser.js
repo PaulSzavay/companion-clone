@@ -4,16 +4,11 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const {MONGO_URI} = process.env;
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
-
 const getUser = async (request, response) => {
 
 const {email} = request.params;
 
-const client = new MongoClient(MONGO_URI, options);
+const client = new MongoClient(MONGO_URI);
 
     try {
         await client.connect();

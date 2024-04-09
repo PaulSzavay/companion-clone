@@ -5,19 +5,11 @@ const bcrypt = require("bcrypt")
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
-
-
 const signIn = async (request, response) => {
 
     const { email, password } = request.body;
 
-    console.log(request.params)
-
-    const client = new MongoClient(MONGO_URI, options);
+    const client = new MongoClient(MONGO_URI);
 
     try{
         await client.connect();
@@ -28,11 +20,7 @@ const signIn = async (request, response) => {
             response.status(404).json({status:404, message: "no account exists"})
         }
 
-        console.log(user.password)
-
         const matchingPassword = await bcrypt.compare(password, user.password)
-        console.log(matchingPassword)
-
 
         if(!matchingPassword){
             response.status(401).json({status: 401, message: "User doesn't exist, please try again",})

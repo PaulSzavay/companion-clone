@@ -4,16 +4,11 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 const {MONGO_URI} = process.env;
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}
-
 const startEvent = async (request, response) => {
 
 const {currentLobby} = request.body;
 
-const client = new MongoClient(MONGO_URI, options);
+const client = new MongoClient(MONGO_URI);
 
     try {
         await client.connect();
@@ -74,8 +69,6 @@ const client = new MongoClient(MONGO_URI, options);
             const tables = distributePeople(playerArray, totalTables);
 
         const updateEvent = await db.collection("Events").updateOne({ lobbyId:currentLobby}, { $set: { "phase": "Draft", "tables": tables}});
-
-        console.log(updateEvent)
 
         response.status(200).json({status:200, tables, findLobby, updateEvent, message:"Event has started"})
 

@@ -6,17 +6,10 @@ const bcrypt = require("bcrypt")
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-const options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-};
-
 const createUser = async (request, response) => {
     
     const { name, username, email, password } = request.body;
     const newId = uuidv4();
-
-    console.log(name, username, email, password)
 
     if (!name || !username || !email || !password) {
     return response.status(400).json({
@@ -25,7 +18,7 @@ const createUser = async (request, response) => {
         });
     }
 
-    const client = new MongoClient(MONGO_URI, options);
+    const client = new MongoClient(MONGO_URI);
 
     try {
         await client.connect();

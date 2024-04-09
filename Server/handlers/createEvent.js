@@ -7,16 +7,11 @@ const {generateId} = require("../helpers/generateLobbyId")
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
 const createEvent = async (request, response) => {
 
     const { username } = request.body;
 
-  const client = new MongoClient(MONGO_URI, options);
+  const client = new MongoClient(MONGO_URI);
 
   try {
     await client.connect();
@@ -25,8 +20,6 @@ const createEvent = async (request, response) => {
     let lobbyId = generateId();
 
     const newEvent = await db.collection("Events").insertOne({_id:uuidv4(), lobbyId, players:[], phase:"Enrolling", eventOwner:username});
-
-    console.log(newEvent)
 
     if(newEvent){
         response.status(201).json({status: 201, message: "Success, event has been created", lobbyId, eventOwner:username});
