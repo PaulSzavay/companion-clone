@@ -4,15 +4,19 @@ const morgan = require("morgan");
 const app = express();
 
 
-express().use(function (_req, res, next) {
-        res.header("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN);
-        res.header(
-          "Access-Control-Allow-Headers",
-          "Content-Type, Accept, Authorization",
-        );
-        res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+
+      express()
+      app.use((req, res, next) => {
+        const allowedOrigins = ['companion-clone-akypew2l1-paulszavays-projects.vercel.app', 'http://localhost:3000'];
+        const origin = req.headers.origin;
+        if (allowedOrigins.includes(origin)) {
+          res.setHeader('Access-Control-Allow-Origin', origin);
+        }
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Access-Control-Allow-Methods', '*');
         next();
       })
+
 
 
 app.use(express.json());
@@ -30,7 +34,7 @@ const { checkIfPlayerOrOwner } = require('./handlers/checkIfPlayerOrOwner');
 const { joinLobby } = require('./handlers/joinLobby');
 const { startEvent } = require('./handlers/startEvent');
 
-
+app.get('/hello', (_, res) => res.send('Hello from AlphaFemme')) (this is for the health check, always returns 200)
 
 app.post("/api/createuser", createUser)
 
