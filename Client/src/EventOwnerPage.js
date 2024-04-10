@@ -21,7 +21,21 @@ useEffect(() => {
   }, [fetchData]);
 
 const pairing = () => {
-    navigate("/pairingpage")
+    fetch("/api/pairing", {
+        method: "POST",
+        body: JSON.stringify( {currentLobby} ),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((parsed) => {
+            console.log(parsed)
+        })
+        .catch((error) => {
+          console.error(error);
+        })
 }
 
     return (
