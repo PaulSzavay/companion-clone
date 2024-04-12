@@ -28,13 +28,13 @@ const Lifetracker = () => {
         }
       }, []);
 
+      console.log(playerArray)
+
   const decreaseLife = (index) => {
     let newPlayerArray = [...playerArray];
     let currentPlayer = newPlayerArray[index];
-    if (currentPlayer.startingLife !== 0) {
-      currentPlayer.startingLife -= 1;
-      setPlayerArray(newPlayerArray);
-    }
+    currentPlayer.startingLife -= 1;
+    setPlayerArray(newPlayerArray);
   };
 
   const increaseLife = (index) => {

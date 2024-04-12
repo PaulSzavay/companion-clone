@@ -31,7 +31,8 @@ const pairing = () => {
       })
         .then((response) => response.json())
         .then((parsed) => {
-            console.log(parsed)
+            setCurrentLobby(parsed.lobbyId)
+            navigate("/pairingpage")
         })
         .catch((error) => {
           console.error(error);
