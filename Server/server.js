@@ -34,6 +34,7 @@ const { checkIfPlayerOrOwner } = require('./handlers/checkIfPlayerOrOwner');
 const { joinLobby } = require('./handlers/joinLobby');
 const { startEvent } = require('./handlers/startEvent');
 const { Pairing } = require('./handlers/Pairing');
+const { scorereporting } = require('./handlers/scorereporting');
 
 app.get('/hello', (_, res) => res.send('Hello from CompanionClone'))
 
@@ -60,6 +61,8 @@ app.post("/api/joinevent", joinLobby)
 app.post("/api/startevent", startEvent)
 
 app.post("/api/pairing", Pairing)
+
+app.post("/api/scorereporting", scorereporting)
 
 
 

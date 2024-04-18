@@ -9,7 +9,7 @@ import { UserContext } from "./UserContext"
 
 const PairingPage = () => {
 
-    const {fullLobby} = useContext(LobbyContext)
+    const {fullLobby, currentLobby, setCurrentLobby} = useContext(LobbyContext)
 
     const {loggedInUser} = useContext(UserContext)
 
@@ -17,15 +17,9 @@ const PairingPage = () => {
 
     const [player2Score, setPlayer2Score] = useState(0)
 
-    const [result, setResult] = useState()
-
-    const [pairingArray, setPairingArray] = useState([])
+    const navigate = useNavigate();
 
     let pairing = []
-
-    console.log(fullLobby)
-
-    
 
     const buttonclicker = () => {
         const findPlayerTable = fullLobby.tables.map((table, index)=>{
@@ -48,20 +42,69 @@ const PairingPage = () => {
         console.log(pairing)
       }
 
-
-    console.log(pairing)
-
-    // set this pairing array in previous page and pass through props. change the score here so that it can be sent to mongoDB
-
-    const increaseScore = (index) => {
-        let newResultsArray = [...result]
-        console.log(newResultsArray)
+    const increaseScore1 = () => {
+        if(player1Score < 2){
+        setPlayer1Score(player1Score + 1)}
     };
 
-    const decreaseScore = (index) => {
-
+    const decreaseScore1 = () => {
+        if(player1Score > 0){
+        setPlayer1Score(player1Score - 1)}
     };
     
+    const increaseScore2 = () => {
+        if(player2Score < 2){
+        setPlayer2Score(player2Score + 1)}
+    };
+
+    const decreaseScore2 = () => {
+        if(player2Score > 0){
+        setPlayer2Score(player2Score - 1)}
+    };
+    
+    const submitResults = () => {
+            const findPlayerTable = fullLobby.tables.map((table, index)=>{
+            return table.includes(loggedInUser)
+            })
+    
+            let tableIndex = findPlayerTable.indexOf(true)
+    
+            const findPlayerPairings = fullLobby.pairings.map((player)=>{
+            return player[tableIndex].find((pairing)=>{
+                return pairing.includes(loggedInUser)
+            })
+            }) 
+
+
+            console.log(...findPlayerPairings)
+
+            let temporaryPairings = [...findPlayerPairings]
+            temporaryPairings[0][2] = player1Score;
+            temporaryPairings[0][3] = player2Score;
+            
+            let newPairings = temporaryPairings[0]
+
+            fetch("/api/scorereporting", {
+                method: "POST",
+                body: JSON.stringify( {currentLobby, loggedInUser, newPairings} ),
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((response) => response.json())
+                .then((parsed) => {
+                    console.log(parsed)
+                })
+                .catch((error) => {
+                  console.error(error);
+                })
+
+    }
+
+    const hostNavigate = () => {
+        navigate("/hostpairingmenu")
+    }
 
 
     return (
@@ -70,29 +113,27 @@ const PairingPage = () => {
         <h2>Pairing Page</h2>
         <button onClick={buttonclicker}>click</button>
         <ScoreboardDiv>
-            {/* {currentPairing && currentPairing.map((person, index)=>{
-                return (
                     <>
-                    <PlayerDiv key={index}>
-                    <h3>{person[0]}</h3>
+                    <PlayerDiv >
+                    <h3>Player 1</h3>
                     <ScoreDiv>
-                    <button class="minus" onClick={() => {decreaseScore(0);}}>-</button>
-                    <div>{result[0]}</div>
-                    <button class="plus" onClick={() => {increaseScore(0);}}>+</button>
+                    <button className="minus" onClick={() => {decreaseScore1();}}>-</button>
+                    <input type="number" value={player1Score}/>
+                    <button className="plus" onClick={() => {increaseScore1();}}>+</button>
                     </ScoreDiv>
                     </PlayerDiv>
-                    <PlayerDiv key={index+1}>
-                    <h3>{result[1]}</h3>
+                    <PlayerDiv>
+                    <h3>Player 2</h3>
                     <ScoreDiv>
-                    <button class="minus" onClick={() => {decreaseScore(1);}}>-</button>
-                    <div>{pairingArray[0][2]}</div>
-                    <button class="plus" onClick={() => {increaseScore(1);}}>+</button>
+                    <button className="minus" onClick={() => {decreaseScore2();}}>-</button>
+                    <input type="number" value={player2Score}/>
+                    <button className="plus" onClick={() => {increaseScore2();}}>+</button>
                     </ScoreDiv>
                     </PlayerDiv>
                     </>
-                )
-            })} */}
         </ScoreboardDiv>
+        <button onClick={submitResults}>Submit</button>
+        <button onClick={hostNavigate}>Host Pairing Menu</button>
         </Section>
         </>
     )

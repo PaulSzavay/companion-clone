@@ -14,6 +14,8 @@ import EventLobby from './EventLobby';
 import JoinEvent from './JoinEvent';
 import EventOwnerPage from './EventOwnerPage';
 import PairingPage from './PairingPage';
+import HostPairingMenu from './HostPairingMenu';
+
 
 const App = () => {
   return (
@@ -35,6 +37,7 @@ const App = () => {
         <Route path="/joinevent" element={<JoinEvent />}/>
         <Route path="/eventhost" element={<EventOwnerPage />}/>
         <Route path="/pairingpage" element={<PairingPage />}/>
+        <Route path="/hostpairingmenu" element={<HostPairingMenu />}/>
       </Routes>
     </Router>
     </>
